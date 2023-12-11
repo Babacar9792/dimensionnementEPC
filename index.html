@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <title>Dashboard</title>
+</head>
+<body>
+    <div class="menu">
+        <ul>
+            
+            <li>
+                <a href="#" class="active">
+                    <i class="fas fa-home"></i>
+                    <p>Parametre d'entrée</p>
+                </a>
+            </li>
+            
+            
+        </ul>
+
+    </div>
+
+
+    <div class="content">
+     <div class="title-info">
+        <p>dashboard</p>
+        <i class="fas fa-chart-bar"></i>
+     </div>
+     <section id="parametre-entre">
+        <div class="container-entre">
+            <h1>Parametres d'entrées - % de smartphones et de "Data Card"</h1>
+            <div class="space-calcule">
+                <div class="input-data">
+                    <label for="total-abonne-input">Nombre total d'abonnés</label>
+                    <input type="number" min="1" id="total-abonne-input">
+                </div>
+                <div class="input-data">
+                    <label for="data-card-input">Percentage "Data card" (en %)</label>
+                    <input type="number" min="1" id="data-card-input" placeholder="indiquer le pourcentage">
+                </div>
+                <div class="input-data">
+                    <label for="smartphone-input">smartphones (%)</label>
+                    <input type="number" min="1" id="smartphone-input">
+                </div>
+                <div class="resultats">
+                    <div>
+                        <label for="total-data-card">Nombre de "Data card"</label>
+                        <input type="text"  id="total-data-card" readonly value="0" title="champ bloqué, le nombre de data card sera affiché selon les valeurs remplies au dessus">
+                    </div>
+                    <div>
+                        <label for="total-smartphone">Nombre de Smartphones</label>
+                        <input type="text" id="total-smartphone" value="0" readonly title="champ bloqué, le nombre de smartphones sera affiché selon les valeurs remplies au dessus">
+                    </div>
+
+                    <!-- <label for="total">Nombre total d'abonnés</label>
+                    <input type="number" min="1" id="total"> -->
+                </div>
+            </div>
+
+        </div>
+     </section>
+     
+     
+     
+
+    </div>
+
+
+    <script type="module" src="js/main.js"></script>
+    
+</body>
+</html>
