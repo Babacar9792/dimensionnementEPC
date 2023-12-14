@@ -320,3 +320,108 @@ ul li a i{
   
 
 /* end tab1  de la partie calcule debit*/
+
+/* start tab : container-trafic-total */
+
+.container-trafic-total{
+  width: 90%;
+  height: 90%;
+  border: 0.1em solid;
+  overflow: scroll;
+  gap: 0.5em;
+}
+.container-trafic-total div:first-child, .container-trafic-total div:last-child{
+  width: 100%;
+  height: 90%;
+  border: 0.1em solid;
+}
+.container-trafic-total div h4{
+  text-align: center;
+  padding: 0.3em;
+}
+/* end tab : container-trafic-total */
+
+
+/* Modal */
+
+.modal button {
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  border-radius: 0.25rem;
+  border: solid 1px transparent;
+  font-weight: bold;
+}
+.btn-close {
+  background: #ffc8dd;
+  color: #0b0b00;
+  width: 100%;
+}
+
+.dialog {
+  border: none;
+  border-radius: 0.25rem;
+  box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+  width: 400px;
+  text-align: center;
+  color: black;
+}
+
+.icon {
+  font-size: 4rem;
+}
+
+.text-content {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+/* content-nombre-totale-operation-procedure-signalisation */
+
+.content-nombre-totale-operation-procedure-signalisation{
+  width: 90%;
+  height: 80%;
+  border: 0.1em solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* overflow: scroll; */
+
+}
+
+.content-nombre-totale-operation-procedure-signalisation div:first-child{
+  width: 90%;
+  height: 25%;
+  /* border: 0.1em solid; */
+}
+.abonnee-utilisateur-actif{
+  width: 90%;
+  height: 20%;
+  /* border: 0.1em solid; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  
+}
+.abonnee-utilisateur-actif div{
+  width: 90%;
+  height: 40%;
+  /* border: 0.1em solid; */
+  display: flex;
+  justify-content: center;
+  align-items:center;
+}
+.abonnee-utilisateur-actif div label{
+  flex-grow: 0.5;
+}
+#content-table-nombre-totale-operation{
+  height: 60%;
+  overflow: scroll;
+}
+
+
+
+
+/* fin : content-nombre-totale-operation-procedure-signalisation */

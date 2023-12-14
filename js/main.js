@@ -1,10 +1,63 @@
 import { debitRequis } from "../components/debit-requis.html.js";
 import { parametreData } from "../components/parametreData.html.js";
-import { parametreEntreSmarphoneDataCard, volumeTraficInternetDataCard, volumeTraficInternetSmartPhone  } from "./data.js";
-import {  navParametreEntre, section, navDebitRequis } from "./dom.js";
-import { calculeData, calculeVolume } from "./function.js";
+import { traficTotal } from "../components/trafic-total.js";
+import { configuration_profileData, parametreEntreSmarphoneDataCard, volumeTraficInternetDataCard, volumeTraficInternetSmartPhone  } from "./data.js";
+import {  navParametreEntre, section, navDebitRequis, configuration_profile, navTracficTotal } from "./dom.js";
+import { calculeData, calculeVolume, procedureSignalisation, traficTotalVpnInternetDlUl, traficTotalVpnInternetUl } from "./function.js";
 
 
+
+/** start Modale 
+ * 
+ * 
+ * 
+ */
+const modal = document.querySelector("dialog")
+const btnCloseModal = document.querySelector(".btn-close")
+const btnOpenModal = document.querySelector(".btn-open")
+
+btnOpenModal.addEventListener("click", () => {
+  modal.showModal()
+})
+
+btnCloseModal.addEventListener("click", () => {
+  modal.close()
+})
+
+configuration_profile.value = configuration_profileData['configuration_profile'];
+configuration_profile.addEventListener('input',(e)=>{
+    if(parseFloat(e.target.value) <0 || e.target.value == ""){
+        e.target.value = 1;
+    }
+    configuration_profileData['configuration_profile'] = parseFloat(e.target.value);
+    const data_card_utilisant_vpn = document.querySelector("#data_card_utilisant_vpn");
+    if(data_card_utilisant_vpn){
+        data_card_utilisant_vpn.value = Math.round(parseFloat(configuration_profile.value)*parametreEntreSmarphoneDataCard['totaleAbonne']/100);
+    }
+    const trafic_total_vpn = document.querySelector("#trafic_total_vpn");
+    if(trafic_total_vpn){
+        trafic_total_vpn.value = data_card_utilisant_vpn.value * volumeTraficInternetDataCard['vpn']['volumeTraficUlDL']/1000000;
+    }
+    const data_card_utilisant_vpn2 = document.querySelector('#data_card_utilisant_vpn2');
+    if(data_card_utilisant_vpn2 ){
+        data_card_utilisant_vpn2.value = Math.round(parseFloat(configuration_profile.value)*parametreEntreSmarphoneDataCard['totaleAbonne']);
+    }
+    const trafic_total_vpn2 = document.querySelector('#trafic_total_vpn2');
+    if(trafic_total_vpn2){
+        trafic_total_vpn2.value = data_card_utilisant_vpn2.value * volumeTraficInternetDataCard['vpn']['volumeTraficUlDL']/1000000;
+    }
+    const debit_total_vpn = document.querySelector('#debit_total_vpn');
+    if(debit_total_vpn){
+        debit_total_vpn.value = parseFloat(trafic_total_vpn.value)*8*1000/3600;
+    }
+    const debit_total_vpn2 = document.querySelector('#debit_total_vpn2');
+    if (debit_total_vpn2) {
+        debit_total_vpn2.value = parseFloat(trafic_total_vpn2.value)*8*1000/3600;
+    }
+
+})
+
+/**end modale */
 
 //inner(section, parametreData());
 
@@ -38,7 +91,7 @@ totalAbonneInput?.addEventListener("input",(e)=>{
         parametreEntreSmarphoneDataCard["totaleAbonne"] = parseFloat(e.target.value);
         //
     }
-    console.log(parametreEntreSmarphoneDataCard);
+    
 })
 dataCardInput?.addEventListener("input", (e)=>{
     if(parseFloat(totalAbonneInput.value) <= 0 || parseFloat(e.target.value) <=0){
@@ -47,7 +100,7 @@ dataCardInput?.addEventListener("input", (e)=>{
         totalDataCard.value = calculeData(parseFloat(totalAbonneInput.value), parseFloat(e.target.value));
         parametreEntreSmarphoneDataCard["totalDataCard"] = parseFloat( totalDataCard.value);
     }
-    console.log(parametreEntreSmarphoneDataCard);
+    
 
 
 })
@@ -58,7 +111,7 @@ smartphoneInput?.addEventListener("input", (e)=>{
         totalSmartphone.value = calculeData(parseFloat(totalAbonneInput.value), parseFloat(e.target.value))
         parametreEntreSmarphoneDataCard["totalSmartPhone"] = parseFloat(totalSmartphone.value);
     }
-    console.log(parametreEntreSmarphoneDataCard);
+    
 })
 
 /* end section 1 Parametres d'entrées - % de smartphones et de "Data Card" */
@@ -88,10 +141,27 @@ allInputForVolume.forEach(element => {
 })
 
 
+navTracficTotal.addEventListener('click', ()=>{
+
+    section.innerHTML = '';
+    section.innerHTML = traficTotal();
+    traficTotalVpnInternetDlUl();
+    traficTotalVpnInternetUl();
+})
+
+
+
 
 /**
  * Fin de la navigation
 */
+
+
+/**  procédure de signalisation */
+
+procedureSignalisation();
+
+/** fin de procédure de signalisation */
 
 
 

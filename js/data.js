@@ -6,9 +6,9 @@
 
         /** tableau 1 : Parametres d'entrées - % de smartphones et de "Data Card" */
 export let parametreEntreSmarphoneDataCard = {
-    totalDataCard : 0,
-    totalSmartPhone : 0,
-    totaleAbonne : 0
+    totalDataCard : 20,
+    totalSmartPhone : 80,
+    totaleAbonne : 100
 }
             /** tableau 2 : Volume de trafic Internet généré par un  smartphone LTE en UL/DL et DL */
 export let   volumeTraficInternetSmartPhone = {
@@ -115,3 +115,22 @@ export let NombreTotaleOperationPourChaqueProcédure = {
         nHoInterMme : 0,
         nProcédure : 0
     };
+
+    export let configuration_profileData = {
+        configuration_profile : 30 
+    }
+
+export let procedureObjet = {
+    nAttach : 0,
+    nDetache : 0,
+    nIdleToActive : 0,
+    nPdn : 0,
+    nBearers : 0,
+    nTauInterMme : 0,
+    nTau : 0,
+    nX2Ho :0,
+    nS1Ho : 0,
+    nHoInterMme : 0,
+    procedure : 0,
+    abonneActivate : 0,
+};
