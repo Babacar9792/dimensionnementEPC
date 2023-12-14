@@ -1,8 +1,8 @@
 import { debitRequis } from "../components/debit-requis.html.js";
 import { parametreData } from "../components/parametreData.html.js";
-import { volumeTraficInternetDataCard, volumeTraficInternetSmartPhone  } from "./data.js";
-import { totalAbonneInput, dataCardInput, smartphoneInput, totalDataCard, totalSmartphone, navParametreEntre, section, btnToTable1, btnToTable2, table2, table1, allInputForVolume, navDebitRequis } from "./dom.js";
-import { calculeData, calculeVolume, inner } from "./function.js";
+import { parametreEntreSmarphoneDataCard, volumeTraficInternetDataCard, volumeTraficInternetSmartPhone  } from "./data.js";
+import {  navParametreEntre, section, navDebitRequis } from "./dom.js";
+import { calculeData, calculeVolume } from "./function.js";
 
 
 
@@ -16,20 +16,13 @@ import { calculeData, calculeVolume, inner } from "./function.js";
 navParametreEntre?.addEventListener('click', ()=>{
     section.innerHTML = '';
     section.innerHTML = parametreData();
-})
+     const totalAbonneInput = document.querySelector("#total-abonne-input");
+     const dataCardInput = document.querySelector("#data-card-input");
+     const smartphoneInput = document.querySelector("#smartphone-input"); //
+     const totalDataCard = document.querySelector("#total-data-card");
+     const totalSmartphone = document.querySelector("#total-smartphone");
 
-navDebitRequis.addEventListener('click', ()=>{
-    section.innerHTML = '';
-    section.innerHTML = debitRequis();
-})
-
-
-
-/**
- * Fin de la navigation
-*/
-
-/**
+    /**
  *  start section 1 Parametres d'entrées - % de smartphones et de "Data Card" 
  * */
 totalAbonneInput?.addEventListener("input",(e)=>{
@@ -40,14 +33,22 @@ totalAbonneInput?.addEventListener("input",(e)=>{
     }else{
         totalDataCard.value = (parseFloat(dataCardInput.value) <=0 || dataCardInput.value == "") ? "0" : calculeData(parseFloat(e.target.value), parseFloat(dataCardInput.value));
         totalSmartphone.value = parseFloat(smartphoneInput.value) <=0 ? "0" : calculeData(parseFloat(e.target.value), parseFloat(smartphoneInput.value));
+        parametreEntreSmarphoneDataCard["totalDataCard"] = parseFloat(totalDataCard.value);
+        parametreEntreSmarphoneDataCard["totalSmartPhone"] = parseFloat(totalSmartphone.value);
+        parametreEntreSmarphoneDataCard["totaleAbonne"] = parseFloat(e.target.value);
+        //
     }
+    console.log(parametreEntreSmarphoneDataCard);
 })
 dataCardInput?.addEventListener("input", (e)=>{
     if(parseFloat(totalAbonneInput.value) <= 0 || parseFloat(e.target.value) <=0){
         alert("les valeurs choisies doivent être positives");
     }else{
         totalDataCard.value = calculeData(parseFloat(totalAbonneInput.value), parseFloat(e.target.value));
+        parametreEntreSmarphoneDataCard["totalDataCard"] = parseFloat( totalDataCard.value);
     }
+    console.log(parametreEntreSmarphoneDataCard);
+
 
 })
 smartphoneInput?.addEventListener("input", (e)=>{
@@ -55,16 +56,22 @@ smartphoneInput?.addEventListener("input", (e)=>{
         alert("les valeurs choisies doivent être positives");
     }else{
         totalSmartphone.value = calculeData(parseFloat(totalAbonneInput.value), parseFloat(e.target.value))
+        parametreEntreSmarphoneDataCard["totalSmartPhone"] = parseFloat(totalSmartphone.value);
     }
+    console.log(parametreEntreSmarphoneDataCard);
 })
 
 /* end section 1 Parametres d'entrées - % de smartphones et de "Data Card" */
+})
 
-
-/** 
+navDebitRequis.addEventListener('click', ()=>{
+    section.innerHTML = '';
+    section.innerHTML = debitRequis();
+    /** 
  *  debut
  * Section 2 pour les volumes 
  * */
+ const allInputForVolume = document.querySelectorAll("table tbody tr td .inputs");
 
 allInputForVolume.forEach(element => {
     let tab = element.getAttribute("tab");
@@ -77,8 +84,19 @@ allInputForVolume.forEach(element => {
         element.value = volumeTraficInternetDataCard[ligne][colonne];
     }
     calculeVolume(element);
-    
 })
+})
+
+
+
+/**
+ * Fin de la navigation
+*/
+
+
+
+
+
 
 
 

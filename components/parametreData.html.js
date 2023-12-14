@@ -18,15 +18,15 @@ export function parametreData(){
         <div class="resultats">
             <div>
                 <label for="total-data-card">Nombre de "Data card"</label>
-                <input type="text"  id="total-data-card" readonly value="0" title="champ bloqué, le nombre de data card sera affiché selon les valeurs remplies au dessus">
+                <input type="text"  id="total-data-card" disabled value="0" title="champ bloqué, le nombre de data card sera affiché selon les valeurs remplies au dessus">
             </div>
             <div>
                 <label for="total-smartphone">Nombre de Smartphones</label>
-                <input type="text" id="total-smartphone" value="0" readonly title="champ bloqué, le nombre de smartphones sera affiché selon les valeurs remplies au dessus">
+                <input type="text" id="total-smartphone" value="0" disabled title="champ bloqué, le nombre de smartphones sera affiché selon les valeurs remplies au dessus">
             </div>
 
             <!-- <label for="total">Nombre total d'abonnés</label>
-            <input type="number" min="1" id="total"> -->
+            <input type="number" min="1" id="total"  > -->
         </div>
     </div>
 

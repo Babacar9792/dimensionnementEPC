@@ -6,9 +6,9 @@
 
         /** tableau 1 : Parametres d'entrées - % de smartphones et de "Data Card" */
 export let parametreEntreSmarphoneDataCard = {
-    percentageDataCard : 1,
-    percentageSmartPhone : 1,
-    totaleAbonne : 1
+    totalDataCard : 0,
+    totalSmartPhone : 0,
+    totaleAbonne : 0
 }
             /** tableau 2 : Volume de trafic Internet généré par un  smartphone LTE en UL/DL et DL */
 export let   volumeTraficInternetSmartPhone = {
