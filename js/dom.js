@@ -10,5 +10,6 @@ export const btnToTable2 = document.getElementById('btn-to-table2');//
 export const configuration_profile = document.querySelector('#configuration_profile');//
 export const navCalculProcedure = document.querySelector('#nav-calcul-procedure');
 export const navDimensionnement = document.querySelector('#nav-dimensionnement');
+export const navCapacite = document.querySelector('#nav-capacite');
 
 

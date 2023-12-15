@@ -1,4 +1,4 @@
-import { dimensionnementUser, parametreEntreSmarphoneDataCard, procedureObjet, volumeTraficInternetDataCard, volumeTraficInternetSmartPhone } from "./data.js";
+import { capaciteInterface, dimensionnementUser, parametreEntreSmarphoneDataCard, procedureObjet, volumeTraficInternetDataCard, volumeTraficInternetSmartPhone } from "./data.js";
 import { configuration_profile } from "./dom.js";
 
 
@@ -632,8 +632,102 @@ function thirdTab() {
         dimensionnementUser['interfaceSGi']['debitServiceInternet'] = debitServiceInternet.value;
         dimensionnementUser['interfaceSGi']['debitServiceVpn'] = debitServiceVpn.value;
         dimensionnementUser['interfaceSGi']['debitTotal'] =  debitTotal.value;
+    })
+}
+
+export function lastTab(){
+    let tailleMoyen = document.querySelector('#taille-moyen');
+    tailleMoyen.value = capaciteInterface['tailleMoyen'];
+    tailleMoyen.addEventListener('input', (e)=>{
+        if (e.target.value == "" || parseFloat(e.target.value)<=0) {
+            e.target.value = 1;
+        }
+        capaciteInterface['tailleMoyen'] = parseFloat(e.target.value);
+        // defaultValueLastTab();
+
+
+
 
     })
+    defaultValueLastTab();
+    const lastTableau = document.querySelectorAll(".last-tab");
+    lastTableau.forEach((element )=>{
+        element.addEventListener('input', (e)=>{
+            const val = parseFloat(tailleMoyen.value); 
+            let tab = e.target.getAttribute('tab');
+            if(parseFloat(e.target.value) <0 || e.target.value == ""){
+                e.target.value = 0;
+            }
+            executeLast(tab, e.target, val)
+        })
+    })
+}
+
+function defaultValueLastTab() {
+    const defaults = document.querySelectorAll('.default');
+    defaults.forEach(element => {
+        let id = element.id.split('_');
+        element.value = capaciteInterface[id[0]][id[1]];
+    });
+    
+}
+
+
+function executeLast(tab, e_target, val) {
+    if(tab != "all"){
+        let id = e_target.id.split("_");
+        let nombre = capaciteInterface[id[0]]['nombre'];
+        capaciteInterface[id[0]][id[1]] = parseFloat(e_target.value);
+        capaciteInterface[id[0]][tab] = (parseFloat(e_target.value)*nombre*val)/(3600*1000000);
+        let change = document.querySelector(`#${id[0]+'_'+tab}`);
+        change.value = (parseFloat(e_target.value)*nombre*val)/(3600*1000000);
+        let total = document.querySelector(`#total_${tab}`);
+        total.value = SommeTotaleTrafic(capaciteInterface, tab);
+        // console.log(SommeTotaleTrafic(capaciteInterface, tab));
+        // console.log(total.value);
+        
+        
+        
+        }else{
+            // console.log("all");
+            let id = e_target.id.split("_");
+            
+            capaciteInterface[id[0]]['nombre'] = parseFloat(e_target.value);
+            let capacitS1 =document.querySelector(`#${id[0]+'_capaciteS1C'}`);
+            capacitS1.value = capaciteInterface[`${id[0]}`]['messageProcedure']*capaciteInterface[id[0]]['nombre']*val/(3600*1000000);
+            capaciteInterface[id[0]]['capaciteS1C'] = capaciteInterface[id[0]]['messageProcedure']*capaciteInterface[id[0]]['nombre']*val/(3600*1000000);
+
+
+                capacitS1 =document.querySelector(`#${id[0]+'_capaciteS11'}`);
+                capacitS1.value = capaciteInterface[id[0]]['messageS11']*capaciteInterface[id[0]]['nombre']*val/(3600*1000000);
+                capaciteInterface[id[0]]['capaciteS11'] = capaciteInterface[id[0]]['messageS11']*capaciteInterface[id[0]]['nombre']*val/(3600*1000000);
+
+                capacitS1 =document.querySelector(`#${id[0]+'_capaciteS8'}`);
+                capacitS1.value = capaciteInterface[id[0]]['messageS8']*capaciteInterface[id[0]]['nombre'];
+                capaciteInterface[id[0]]['capaciteS8'] = capaciteInterface[id[0]]['messageS8']*capaciteInterface[id[0]]['nombre']*val/(3600*1000000);
+
+                capacitS1 =document.querySelector(`#${id[0]+'_capaciteS6'}`);
+                capacitS1.value = capaciteInterface[id[0]]['messageS6']*capaciteInterface[id[0]]['nombre']*val/(3600*1000000);
+                capaciteInterface[id[0]]['capaciteS6'] = capaciteInterface[id[0]]['messageS6']*capaciteInterface[id[0]]['nombre']*val/(3600*1000000);
+
+                tab = "capaciteS1C";
+                let total = document.querySelector(`#total_${tab}`);
+                total.value = SommeTotaleTrafic(capaciteInterface, tab);
+
+                tab = "capaciteS11";
+                 total = document.querySelector(`#total_${tab}`);
+                total.value = SommeTotaleTrafic(capaciteInterface, tab);
+
+                tab = "capaciteS8";
+                 total = document.querySelector(`#total_${tab}`);
+                total.value = SommeTotaleTrafic(capaciteInterface, tab);
+
+                tab = "capaciteS6";
+                 total = document.querySelector(`#total_${tab}`);
+                total.value = SommeTotaleTrafic(capaciteInterface, tab);
+
+
+        }
     
 }
 

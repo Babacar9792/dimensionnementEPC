@@ -161,3 +161,124 @@ export let dimensionnementUser = {
 
     }
 }
+
+
+
+export let capaciteInterface = {
+    nAttach : {
+        nombre : 0,
+        messageProcedure : 0,
+        capaciteS1C : 0,
+        messageS11 : 0,
+        capaciteS11 : 0,
+        messageS8 : 0,
+        capaciteS8 : 0,
+        messageS6 : 0,
+        capaciteS6 : 0
+    },
+    nDetach : {
+        nombre : 0,
+        messageProcedure : 0,
+        capaciteS1C : 0,
+        messageS11 : 0,
+        capaciteS11 : 0,
+        messageS8 : 0,
+        capaciteS8 : 0,
+        messageS6 : 0,
+        capaciteS6 : 0
+    },
+    nIdleToActive : {
+        nombre : 0,
+        messageProcedure : 0,
+        capaciteS1C : 0,
+        messageS11 : 0,
+        capaciteS11 : 0,
+        messageS8 : 0,
+        capaciteS8 : 0,
+        messageS6 : 0,
+        capaciteS6 : 0
+    },
+    nConnexionPdn : {
+        nombre : 0,
+        messageProcedure : 0,
+        capaciteS1C : 0,
+        messageS11 : 0,
+        capaciteS11 : 0,
+        messageS8 : 0,
+        capaciteS8 : 0,
+        messageS6 : 0,
+        capaciteS6 : 0
+    },
+    nBearer : {
+        nombre : 0,
+        messageProcedure : 0,
+        capaciteS1C : 0,
+        messageS11 : 0,
+        capaciteS11 : 0,
+        messageS8 : 0,
+        capaciteS8 : 0,
+        messageS6 : 0,
+        capaciteS6 : 0
+    },
+    nTauInterMme : {
+        nombre : 0,
+        messageProcedure : 0,
+        capaciteS1C : 0,
+        messageS11 : 0,
+        capaciteS11 : 0,
+        messageS8 : 0,
+        capaciteS8 : 0,
+        messageS6 : 0,
+        capaciteS6 : 0
+    },
+    nTauInterMmeSgw : {
+        nombre : 0,
+        messageProcedure : 0,
+        capaciteS1C : 0,
+        messageS11 : 0,
+        capaciteS11 : 0,
+        messageS8 : 0,
+        capaciteS8 : 0,
+        messageS6 : 0,
+        capaciteS6 : 0
+    },
+    nX2Ho : {
+        nombre : 0,
+        messageProcedure : 0,
+        capaciteS1C : 0,
+        messageS11 : 0,
+        capaciteS11 : 0,
+        messageS8 : 0,
+        capaciteS8 : 0,
+        messageS6 : 0,
+        capaciteS6 : 0
+    }, nS1Ho : {
+        nombre : 0,
+        messageProcedure : 0,
+        capaciteS1C : 0,
+        messageS11 : 0,
+        capaciteS11 : 0,
+        messageS8 : 0,
+        capaciteS8 : 0,
+        messageS6 : 0,
+        capaciteS6 : 0
+    },
+    nHoInterMme : {
+        nombre : 0,
+        messageProcedure : 0,
+        capaciteS1C : 0,
+        messageS11 : 0,
+        capaciteS11 : 0,
+        messageS8 : 0,
+        capaciteS8 : 0,
+        messageS6 : 0,
+        capaciteS6 : 0
+    },
+    tailleMoyen : 1024
+
+
+    
+
+
+}
+
