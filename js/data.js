@@ -275,9 +275,70 @@ export let capaciteInterface = {
         capaciteS6 : 0
     },
     tailleMoyen : 1024
+}
 
+export let valeurPreliminaire = {
+    mmeSimultaneousAttachedUsers : {
+        valeur : 0,
+        pourcentage: 0,
+        capaciteExploitation : 0
+    },
+    mmeTransactionIdleActive :{
+        valeur : 0,
+        pourcentage: 0,
+        capaciteExploitation : 0
+    },
+    mmeTotalTransaction : {
+        valeur : 0,
+        pourcentage: 0,
+        capaciteExploitation : 0
+    },
+    //
+    sgwNombreBearer : {
+        valeur : 0,
+        pourcentage: 0,
+        capaciteExploitation : 0
+    },
+    sgwCapaciteTraitementDonnee :{
+        valeur : 0,
+        pourcentage: 0,
+        capaciteExploitation : 0
+    },
+    pgwNombreBearer : {
+        valeur : 0,
+        pourcentage: 0,
+        capaciteExploitation : 0
+    },
+    pgwCapaciteTraitementDonnee :{
+        valeur : 0,
+        pourcentage: 0,
+        capaciteExploitation : 0
+    },
 
+    //
+    sgwPgwNombreBearer : {
+        valeur : 0,
+        pourcentage: 0,
+        capaciteExploitation : 0
+    },
+    sgwPgwCapaciteTraitementDonnee :{
+        valeur : 0,
+        pourcentage: 0,
+        capaciteExploitation : 0
+    },
+
+    hssNombreAbonneeSupporte : {
+        valeur : 0,
+        pourcentage: 0,
+        capaciteExploitation : 0
+    },
+    pcrfTotalTransaction : {
+        valeur : 0,
+        pourcentage: 0,
+        capaciteExploitation : 0
+    }
     
+
 
 
 }

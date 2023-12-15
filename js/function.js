@@ -1,4 +1,4 @@
-import { capaciteInterface, dimensionnementUser, parametreEntreSmarphoneDataCard, procedureObjet, volumeTraficInternetDataCard, volumeTraficInternetSmartPhone } from "./data.js";
+import { capaciteInterface, dimensionnementUser, parametreEntreSmarphoneDataCard, procedureObjet, valeurPreliminaire, volumeTraficInternetDataCard, volumeTraficInternetSmartPhone } from "./data.js";
 import { configuration_profile } from "./dom.js";
 
 
@@ -728,6 +728,24 @@ function executeLast(tab, e_target, val) {
 
 
         }
+    
+}
+
+export function valeurPreliminaireFunction() {
+   let changeVals = document.querySelectorAll('.change-val');
+    changeVals.forEach(element =>{
+        element.addEventListener("input", (e)=>{
+            if(e.target.value == "" || parseFloat(e.target.value) <0){
+                e.target.value = 0;
+            }
+            let id = e.target.id.split('_');
+            valeurPreliminaire[id[0]][id[1]] = e.target.value;
+            valeurPreliminaire[id[0]]['capaciteExploitation'] = parseFloat(valeurPreliminaire[id[0]]["valeur"])*parseFloat(valeurPreliminaire[id[0]]["pourcentage"]);
+            let exploitation = document.querySelector(`#${id[0]}_capaciteExploitation`);
+            console.log(exploitation);
+            exploitation.value =  valeurPreliminaire[id[0]]['capaciteExploitation'];
+        })
+    })
     
 }
 

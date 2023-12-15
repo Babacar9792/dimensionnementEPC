@@ -6,7 +6,7 @@ import { calculProcedure } from "../components/procedure-signalisation.js";
 import { traficTotal } from "../components/trafic-total.js";
 import { configuration_profileData, parametreEntreSmarphoneDataCard, volumeTraficInternetDataCard, volumeTraficInternetSmartPhone  } from "./data.js";
 import {  navParametreEntre, section, navDebitRequis, configuration_profile, navTracficTotal, navCalculProcedure, navDimensionnement, navCapacite } from "./dom.js";
-import { calculeData, calculeVolume, dimensionnementPlanUsager, lastTab, procedureSignalisation, traficTotalVpnInternetDlUl, traficTotalVpnInternetUl } from "./function.js";
+import { calculeData, calculeVolume, dimensionnementPlanUsager, lastTab, procedureSignalisation, traficTotalVpnInternetDlUl, traficTotalVpnInternetUl, valeurPreliminaireFunction } from "./function.js";
 
 
 
@@ -185,6 +185,8 @@ navCapacite.addEventListener('click', ()=>{
     section.innerHTML = capaciteHtml();
     lastTab();
 })
+
+valeurPreliminaireFunction();
 
 
 
