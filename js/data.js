@@ -134,3 +134,30 @@ export let procedureObjet = {
     procedure : 0,
     abonneActivate : 0,
 };
+
+export let dimensionnementUser = {
+    interfaceS1U : {
+        overheadPaquet : 1,
+        taillePaquet :1,
+        overhead : 1,
+        debitServiceVpn :1,
+        debitServiceInternet :1,
+        debitTotal : 1
+    },
+    interfaceS5  : {
+        overheadPaquet : 1,
+        taillePaquet : 1,
+        overhead : 1,
+        debitServiceVpn : 1,
+        debitTotal : 1 
+
+    },
+    interfaceSGi : {
+        overheadPaquet : 1,
+        taillePaquet : 1,
+        overhead : 1,
+        debitServiceVpn : 1,
+        debitTotal : 1
+
+    }
+}

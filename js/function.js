@@ -1,4 +1,4 @@
-import { parametreEntreSmarphoneDataCard, procedureObjet, volumeTraficInternetDataCard, volumeTraficInternetSmartPhone } from "./data.js";
+import { dimensionnementUser, parametreEntreSmarphoneDataCard, procedureObjet, volumeTraficInternetDataCard, volumeTraficInternetSmartPhone } from "./data.js";
 import { configuration_profile } from "./dom.js";
 
 
@@ -444,6 +444,197 @@ export function procedureSignalisation() {
 
 function getProcedure(a_1, a_2, a_3, a_4, a_5, a_6, a_7, a_8, a_9, a_10) {
     return parseFloat(a_1)+ parseFloat(a_2)+parseFloat(a_3)+parseFloat(a_4)+parseFloat(a_5)+parseFloat(a_6)+parseFloat(a_7)+parseFloat(a_8)+parseFloat(a_9)+parseFloat(a_10);
+}
+
+export function dimensionnementPlanUsager() {
+    
+    firtsTab();
+    secondTab();
+    thirdTab();
+    
+}
+
+
+function firtsTab() {
+    const overheadPaquet = document.querySelector("#overhead-paquet");
+    const taillePaquet = document.querySelector('#taille-paquet');
+    const overhead = document.querySelector('#overhead');
+    const debitServiceInternet = document.querySelector('#debit-service-internet');
+    const debitServiceVpn = document.querySelector('#debit-service-vpn');
+    const debitTotal = document.querySelector('#debit-total');
+    overheadPaquet.value = dimensionnementUser['interfaceS1U']['overheadPaquet'];
+    taillePaquet.value = dimensionnementUser['interfaceS1U']['taillePaquet'];
+    overhead.value = dimensionnementUser['interfaceS1U']['overhead'];
+    debitServiceInternet.value = dimensionnementUser['interfaceS1U']['debitServiceInternet'];
+    debitServiceVpn.value = dimensionnementUser['interfaceS1U']['debitServiceVpn'];
+    debitTotal.value = dimensionnementUser['interfaceS1U']['debitTotal'];
+
+    overheadPaquet.addEventListener('input', (e)=>{
+        if(e.target.value == "" || parseFloat(e.target.value) <=0){
+            e.target.value= 1;
+        }
+        overhead.value = parseFloat(e.target.value)/taillePaquet.value;
+        let F38 = (SommeTotaleTrafic(volumeTraficInternetSmartPhone, 'volumeTraficDl') * parametreEntreSmarphoneDataCard['totalSmartPhone']/1000000 + SommeTotaleTrafic(volumeTraficInternetDataCard, 'volumeTraficDl')*parametreEntreSmarphoneDataCard['totalDataCard']/1000000)*8000/3600;
+        let F41 = ((Math.round(parametreEntreSmarphoneDataCard['totaleAbonne']*parseFloat(configuration_profile.value)))*volumeTraficInternetDataCard['vpn']['volumeTraficUlDL']/1000000)*8000/3600;
+        debitServiceInternet.value = (1 + parseFloat(overhead.value))*(1+parseFloat(overhead.value))*F38;
+        debitServiceVpn.value = (1 + parseFloat(overhead.value))*F41;
+        debitTotal.value = parseFloat(debitServiceInternet.value) + parseFloat(debitServiceVpn.value);
+
+
+        dimensionnementUser['interfaceS1U']['overheadPaquet'] = overheadPaquet.value;
+        dimensionnementUser['interfaceS1U']['taillePaquet'] =  taillePaquet.value ;
+        dimensionnementUser['interfaceS1U']['overhead'] =  overhead.value;
+        dimensionnementUser['interfaceS1U']['debitServiceInternet'] = debitServiceInternet.value;
+        dimensionnementUser['interfaceS1U']['debitServiceVpn'] = debitServiceVpn.value;
+        dimensionnementUser['interfaceS1U']['debitTotal'] =  debitTotal.value;
+        // console.log( (1 + parseFloat(overhead.value))*(1+parseFloat(overhead.value))*F38);
+
+
+    })
+
+    taillePaquet.addEventListener('input', (e)=>{
+        if(e.target.value == "" || parseFloat(e.target.value) <0){
+            e.target.value= 0;
+        }
+        overhead.value = parseFloat(e.target.value)/overheadPaquet.value;
+        F38 = 8000/3600*(SommeTotaleTrafic(volumeTraficInternetSmartPhone, 'volumeTraficDl') * parametreEntreSmarphoneDataCard['totalSmartPhone']/1000000 + SommeTotaleTrafic(volumeTraficInternetDataCard, 'volumeTraficDl')*parametreEntreSmarphoneDataCard['totalDataCard']/1000000);
+        F41 = ((Math.round(parametreEntreSmarphoneDataCard['totaleAbonne']*parseFloat(configuration_profile.value)))*volumeTraficInternetDataCard['vpn']['volumeTraficUlDL']/1000000)*8000/3600;
+        debitServiceInternet.value = (1 + parseFloat(overhead.value))*(1+parseFloat(overhead.value))*F38;
+        console.log( (1 + parseFloat(overhead.value))*(1+parseFloat(overhead.value))*F38);
+        debitServiceVpn.value = (1 + parseFloat(overhead.value))*F41;
+        debitTotal.value = parseFloat(debitServiceInternet.value) + parseFloat(debitServiceVpn.value);
+
+
+        dimensionnementUser['interfaceS1U']['overheadPaquet'] = overheadPaquet.value;
+        dimensionnementUser['interfaceS1U']['taillePaquet'] =  taillePaquet.value ;
+        dimensionnementUser['interfaceS1U']['overhead'] =  overhead.value;
+        dimensionnementUser['interfaceS1U']['debitServiceInternet'] = debitServiceInternet.value;
+        dimensionnementUser['interfaceS1U']['debitServiceVpn'] = debitServiceVpn.value;
+        dimensionnementUser['interfaceS1U']['debitTotal'] =  debitTotal.value;
+
+    })
+    
+}
+
+function secondTab() {
+    const overheadPaquet = document.querySelector("#overhead-paquet1");
+    const taillePaquet = document.querySelector('#taille-paquet1');
+    const overhead = document.querySelector('#overhead1');
+    const debitServiceInternet = document.querySelector('#debit-service-internet1');
+    const debitServiceVpn = document.querySelector('#debit-service-vpn1');
+    const debitTotal = document.querySelector('#debit-total1');
+    overheadPaquet.value = dimensionnementUser['interfaceS5']['overheadPaquet'];
+    taillePaquet.value = dimensionnementUser['interfaceS5']['taillePaquet'];
+    overhead.value = dimensionnementUser['interfaceS5']['overhead'];
+    debitServiceInternet.value = dimensionnementUser['interfaceS5']['debitServiceInternet'];
+    debitServiceVpn.value = dimensionnementUser['interfaceS5']['debitServiceVpn'];
+    debitTotal.value = dimensionnementUser['interfaceS5']['debitTotal'];
+    overheadPaquet.addEventListener('input', (e)=>{
+        if(e.target.value == "" || parseFloat(e.target.value) <=0){
+            e.target.value= 1;
+        }
+        overhead.value = parseFloat(e.target.value)/taillePaquet.value;
+        let F38 = (SommeTotaleTrafic(volumeTraficInternetSmartPhone, 'volumeTraficDl') * parametreEntreSmarphoneDataCard['totalSmartPhone']/1000000 + SommeTotaleTrafic(volumeTraficInternetDataCard, 'volumeTraficDl')*parametreEntreSmarphoneDataCard['totalDataCard']/1000000)*8000/3600;
+        let F41 = ((Math.round(parametreEntreSmarphoneDataCard['totaleAbonne']*parseFloat(configuration_profile.value)))*volumeTraficInternetDataCard['vpn']['volumeTraficUlDL']/1000000)*8000/3600;
+        debitServiceInternet.value = (1 + parseFloat(overhead.value))*(1+parseFloat(overhead.value))*F38;
+        debitServiceVpn.value = (1 + parseFloat(overhead.value))*F41;
+        debitTotal.value = parseFloat(debitServiceInternet.value) + parseFloat(debitServiceVpn.value);
+
+
+        dimensionnementUser['interfaceS5']['overheadPaquet'] = overheadPaquet.value;
+        dimensionnementUser['interfaceS5']['taillePaquet'] =  taillePaquet.value ;
+        dimensionnementUser['interfaceS5']['overhead'] =  overhead.value;
+        dimensionnementUser['interfaceS5']['debitServiceInternet'] = debitServiceInternet.value;
+        dimensionnementUser['interfaceS5']['debitServiceVpn'] = debitServiceVpn.value;
+        dimensionnementUser['interfaceS5']['debitTotal'] =  debitTotal.value;
+        // console.log( (1 + parseFloat(overhead.value))*(1+parseFloat(overhead.value))*F38);
+
+
+    })
+
+    taillePaquet.addEventListener('input', (e)=>{
+        if(e.target.value == "" || parseFloat(e.target.value) <0){
+            e.target.value= 0;
+        }
+        overhead.value = parseFloat(e.target.value)/overheadPaquet.value;
+        F38 = 8000/3600*(SommeTotaleTrafic(volumeTraficInternetSmartPhone, 'volumeTraficDl') * parametreEntreSmarphoneDataCard['totalSmartPhone']/1000000 + SommeTotaleTrafic(volumeTraficInternetDataCard, 'volumeTraficDl')*parametreEntreSmarphoneDataCard['totalDataCard']/1000000);
+        F41 = ((Math.round(parametreEntreSmarphoneDataCard['totaleAbonne']*parseFloat(configuration_profile.value)))*volumeTraficInternetDataCard['vpn']['volumeTraficUlDL']/1000000)*8000/3600;
+        debitServiceInternet.value = (1 + parseFloat(overhead.value))*(1+parseFloat(overhead.value))*F38;
+        // console.log( (1 + parseFloat(overhead.value))*(1+parseFloat(overhead.value))*F38);
+        debitServiceVpn.value = (1 + parseFloat(overhead.value))*F41;
+        debitTotal.value = parseFloat(debitServiceInternet.value) + parseFloat(debitServiceVpn.value);
+
+
+        dimensionnementUser['interfaceS5']['overheadPaquet'] = overheadPaquet.value;
+        dimensionnementUser['interfaceS5']['taillePaquet'] =  taillePaquet.value ;
+        dimensionnementUser['interfaceS5']['overhead'] =  overhead.value;
+        dimensionnementUser['interfaceS5']['debitServiceInternet'] = debitServiceInternet.value;
+        dimensionnementUser['interfaceS5']['debitServiceVpn'] = debitServiceVpn.value;
+        dimensionnementUser['interfaceS5']['debitTotal'] =  debitTotal.value;
+
+    })
+    
+}
+
+
+function thirdTab() {
+    const overheadPaquet = document.querySelector("#overhead-paquet2");
+    const taillePaquet = document.querySelector('#taille-paquet2');
+    const overhead = document.querySelector('#overhead2');
+    const debitServiceInternet = document.querySelector('#debit-service-internet2');
+    const debitServiceVpn = document.querySelector('#debit-service-vpn2');
+    const debitTotal = document.querySelector('#debit-total2');
+    overheadPaquet.value = dimensionnementUser['interfaceSGi']['overheadPaquet'];
+    taillePaquet.value = dimensionnementUser['interfaceSGi']['taillePaquet'];
+    overhead.value = dimensionnementUser['interfaceSGi']['overhead'];
+    debitServiceInternet.value = dimensionnementUser['interfaceSGi']['debitServiceInternet'];
+    debitServiceVpn.value = dimensionnementUser['interfaceSGi']['debitServiceVpn'];
+    debitTotal.value = dimensionnementUser['interfaceSGi']['debitTotal'];
+    overheadPaquet.addEventListener('input', (e)=>{
+        if(e.target.value == "" || parseFloat(e.target.value) <=0){
+            e.target.value= 1;
+        }
+        overhead.value = parseFloat(e.target.value)/taillePaquet.value;
+        let F38 = (SommeTotaleTrafic(volumeTraficInternetSmartPhone, 'volumeTraficDl') * parametreEntreSmarphoneDataCard['totalSmartPhone']/1000000 + SommeTotaleTrafic(volumeTraficInternetDataCard, 'volumeTraficDl')*parametreEntreSmarphoneDataCard['totalDataCard']/1000000)*8000/3600;
+        let F41 = ((Math.round(parametreEntreSmarphoneDataCard['totaleAbonne']*parseFloat(configuration_profile.value)))*volumeTraficInternetDataCard['vpn']['volumeTraficUlDL']/1000000)*8000/3600;
+        debitServiceInternet.value = (1 + parseFloat(overhead.value))*(1+parseFloat(overhead.value))*F38;
+        debitServiceVpn.value = (1 + parseFloat(overhead.value))*F41;
+        debitTotal.value = parseFloat(debitServiceInternet.value) + parseFloat(debitServiceVpn.value);
+
+
+        dimensionnementUser['interfaceSGi']['overheadPaquet'] = overheadPaquet.value;
+        dimensionnementUser['interfaceSGi']['taillePaquet'] =  taillePaquet.value ;
+        dimensionnementUser['interfaceSGi']['overhead'] =  overhead.value;
+        dimensionnementUser['interfaceSGi']['debitServiceInternet'] = debitServiceInternet.value;
+        dimensionnementUser['interfaceSGi']['debitServiceVpn'] = debitServiceVpn.value;
+        dimensionnementUser['interfaceSGi']['debitTotal'] =  debitTotal.value;
+        // console.log( (1 + parseFloat(overhead.value))*(1+parseFloat(overhead.value))*F38);
+
+
+    })
+
+    taillePaquet.addEventListener('input', (e)=>{
+        if(e.target.value == "" || parseFloat(e.target.value) <0){
+            e.target.value= 0;
+        }
+        overhead.value = parseFloat(e.target.value)/overheadPaquet.value;
+        F38 = 8000/3600*(SommeTotaleTrafic(volumeTraficInternetSmartPhone, 'volumeTraficDl') * parametreEntreSmarphoneDataCard['totalSmartPhone']/1000000 + SommeTotaleTrafic(volumeTraficInternetDataCard, 'volumeTraficDl')*parametreEntreSmarphoneDataCard['totalDataCard']/1000000);
+        F41 = ((Math.round(parametreEntreSmarphoneDataCard['totaleAbonne']*parseFloat(configuration_profile.value)))*volumeTraficInternetDataCard['vpn']['volumeTraficUlDL']/1000000)*8000/3600;
+        debitServiceInternet.value = (1 + parseFloat(overhead.value))*(1+parseFloat(overhead.value))*F38;
+        // console.log( (1 + parseFloat(overhead.value))*(1+parseFloat(overhead.value))*F38);
+        debitServiceVpn.value = (1 + parseFloat(overhead.value))*F41;
+        debitTotal.value = parseFloat(debitServiceInternet.value) + parseFloat(debitServiceVpn.value);
+
+
+        dimensionnementUser['interfaceSGi']['overheadPaquet'] = overheadPaquet.value;
+        dimensionnementUser['interfaceSGi']['taillePaquet'] =  taillePaquet.value ;
+        dimensionnementUser['interfaceSGi']['overhead'] =  overhead.value;
+        dimensionnementUser['interfaceSGi']['debitServiceInternet'] = debitServiceInternet.value;
+        dimensionnementUser['interfaceSGi']['debitServiceVpn'] = debitServiceVpn.value;
+        dimensionnementUser['interfaceSGi']['debitTotal'] =  debitTotal.value;
+
+    })
+    
 }
 
 

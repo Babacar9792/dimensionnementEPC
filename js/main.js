@@ -1,9 +1,11 @@
 import { debitRequis } from "../components/debit-requis.html.js";
+import { dimensionnement } from "../components/dimensionnement.js";
 import { parametreData } from "../components/parametreData.html.js";
+import { calculProcedure } from "../components/procedure-signalisation.js";
 import { traficTotal } from "../components/trafic-total.js";
 import { configuration_profileData, parametreEntreSmarphoneDataCard, volumeTraficInternetDataCard, volumeTraficInternetSmartPhone  } from "./data.js";
-import {  navParametreEntre, section, navDebitRequis, configuration_profile, navTracficTotal } from "./dom.js";
-import { calculeData, calculeVolume, procedureSignalisation, traficTotalVpnInternetDlUl, traficTotalVpnInternetUl } from "./function.js";
+import {  navParametreEntre, section, navDebitRequis, configuration_profile, navTracficTotal, navCalculProcedure, navDimensionnement } from "./dom.js";
+import { calculeData, calculeVolume, dimensionnementPlanUsager, procedureSignalisation, traficTotalVpnInternetDlUl, traficTotalVpnInternetUl } from "./function.js";
 
 
 
@@ -149,6 +151,13 @@ navTracficTotal.addEventListener('click', ()=>{
     traficTotalVpnInternetUl();
 })
 
+navCalculProcedure.addEventListener("click",()=>{
+    section.innerHTML = '';
+    section.innerHTML = calculProcedure();
+    procedureSignalisation();
+})
+
+
 
 
 
@@ -159,10 +168,16 @@ navTracficTotal.addEventListener('click', ()=>{
 
 /**  procédure de signalisation */
 
-procedureSignalisation();
+
 
 /** fin de procédure de signalisation */
 
+
+navDimensionnement.addEventListener("click", ()=>{
+    section.innerHTML = "";
+    section.innerHTML = dimensionnement();
+    dimensionnementPlanUsager();
+})
 
 
 
