@@ -38,6 +38,53 @@ export function calculeVolume(element) {
     })
 }
 
+export function paramFirstTab(){
+    const totalAbonneInput = document.querySelector("#total-abonne-input");
+     const dataCardInput = document.querySelector("#data-card-input");
+     const smartphoneInput = document.querySelector("#smartphone-input"); //
+     const totalDataCard = document.querySelector("#total-data-card");
+     const totalSmartphone = document.querySelector("#total-smartphone");
+
+    /**
+ *  start section 1 Parametres d'entrées - % de smartphones et de "Data Card" 
+ * */
+totalAbonneInput?.addEventListener("input",(e)=>{
+    totalDataCard.value = "0";
+    totalSmartphone.value = "0";
+    if(parseFloat(e.target.value) <=0 || e.target.value == ""){
+        alert("La valeur doit être strictement positive");
+    }else{
+        totalDataCard.value = (parseFloat(dataCardInput.value) <=0 || dataCardInput.value == "") ? "0" : calculeData(parseFloat(e.target.value), parseFloat(dataCardInput.value));
+        totalSmartphone.value = parseFloat(smartphoneInput.value) <=0 ? "0" : calculeData(parseFloat(e.target.value), parseFloat(smartphoneInput.value));
+        parametreEntreSmarphoneDataCard["totalDataCard"] = parseFloat(totalDataCard.value);
+        parametreEntreSmarphoneDataCard["totalSmartPhone"] = parseFloat(totalSmartphone.value);
+        parametreEntreSmarphoneDataCard["totaleAbonne"] = parseFloat(e.target.value);
+        //
+    }
+    
+})
+dataCardInput?.addEventListener("input", (e)=>{
+    if(parseFloat(totalAbonneInput.value) <= 0 || parseFloat(e.target.value) <=0){
+        alert("les valeurs choisies doivent être positives");
+    }else{
+        totalDataCard.value = calculeData(parseFloat(totalAbonneInput.value), parseFloat(e.target.value));
+        parametreEntreSmarphoneDataCard["totalDataCard"] = parseFloat( totalDataCard.value);
+    }
+    
+
+
+})
+smartphoneInput?.addEventListener("input", (e)=>{
+    if(parseFloat(totalAbonneInput.value) <= 0 || parseFloat(e.target.value) <=0){
+        alert("les valeurs choisies doivent être positives");
+    }else{
+        totalSmartphone.value = calculeData(parseFloat(totalAbonneInput.value), parseFloat(e.target.value))
+        parametreEntreSmarphoneDataCard["totalSmartPhone"] = parseFloat(totalSmartphone.value);
+    }
+    
+})
+}
+
 function getVolumeByTableau(objetTableau,tabNew, ligneNew, colonneNew, e) {
     let ele = document.querySelector(`#${tabNew+'_'+ligneNew+'_volumeTraficUlDL'}`);
     let ele1 = document.querySelector(`#${tabNew+'_'+ligneNew+'_volumeTraficDl'}`);
@@ -122,7 +169,7 @@ export function traficTotalVpnInternetUl(){
     volume_trafic_totale2.value = parseFloat(volume_trafic_totale_smartphone2.value)+ parseFloat(volume_trafic_totale_carte2.value);
 
     const debit_internet_ul_dl2 = document.querySelector('#debit_internet_ul_dl2');
-    debit_internet_ul_dl2.value = parseFloat(volume_trafic_totale2.value)*8*1000/3600;
+    debit_internet_ul_dl2.value = parseFloat(volume_trafic_totale2.value)*8*1000/3600; // parseFloat(parametreEntreSmarphoneDataCard['totalSmartPhone']* SommeTotaleTrafic(volumeTraficInternetSmartPhone, "volumeTraficDl")/100000)+ parseFloat(parametreEntreSmarphoneDataCard['totalDataCard']* SommeTotaleTrafic(volumeTraficInternetDataCard, "volumeTraficDl")/100000)*8*1000/3600
 
     const data_card_utilisant_vpn2 = document.querySelector('#data_card_utilisant_vpn2');
     data_card_utilisant_vpn2.value = Math.round(parseFloat(configuration_profile.value)*parametreEntreSmarphoneDataCard['totaleAbonne']);
@@ -131,7 +178,7 @@ export function traficTotalVpnInternetUl(){
     trafic_total_vpn2.value = data_card_utilisant_vpn2.value * volumeTraficInternetDataCard['vpn']['volumeTraficUlDL']/1000000;
 
     const debit_total_vpn2 = document.querySelector('#debit_total_vpn2');
-    debit_total_vpn2.value = parseFloat(trafic_total_vpn2.value)*8*1000/3600;
+    debit_total_vpn2.value = parseFloat(trafic_total_vpn2.value)*8*1000/3600; // parseFloat(Math.round(parseFloat(configuration_profile.value)*parametreEntreSmarphoneDataCard['totaleAbonne']) * volumeTraficInternetDataCard['vpn']['volumeTraficUlDL']/1000000)*8*1000/3600
 
 }
 
@@ -732,6 +779,7 @@ function executeLast(tab, e_target, val) {
 }
 
 export function valeurPreliminaireFunction() {
+    noeudsRequis();
    let changeVals = document.querySelectorAll('.change-val');
     changeVals.forEach(element =>{
         element.addEventListener("input", (e)=>{
@@ -744,9 +792,81 @@ export function valeurPreliminaireFunction() {
             let exploitation = document.querySelector(`#${id[0]}_capaciteExploitation`);
             console.log(exploitation);
             exploitation.value =  valeurPreliminaire[id[0]]['capaciteExploitation'];
+            noeudsRequis();
         })
     })
     
+}
+
+
+function noeudsRequis(){
+    let champ1_c5_f66 = document.querySelector('#champ1_c5_f66');
+    let c50 = procedureObjet['nAttach'] ;
+    let F66 =  valeurPreliminaire['mmeSimultaneousAttachedUsers']['capaciteExploitation'];
+    champ1_c5_f66.value = Math.round(parseFloat(c50)/parseFloat(F66));
+
+
+    let champ2_c52_f67 = document.querySelector('#champ2_c52_f67');
+    let c52= procedureObjet['nIdleToActive'];
+    let f67 = valeurPreliminaire['mmeTransactionIdleActive']['capaciteExploitation'];
+    champ2_c52_f67.value = Math.round(parseFloat(c52)/3600/parseFloat(f67));
+
+    let champ3_c60_f68 = document.querySelector('#champ3_c60_f68');
+    let c60 = procedureObjet['procedure']; 
+    let f68 = valeurPreliminaire['mmeTotalTransaction']['capaciteExploitation']; 
+    champ3_c60_f68.value = Math.round(parseFloat(c60)/3600/parseFloat(f68));
+
+    let champ4_c54_f69 = document.querySelector('#champ4_c54_f69');
+    let c54 = procedureObjet['nBearers'];
+    let f69 = valeurPreliminaire['sgwNombreBearer']['capaciteExploitation'] ;
+    champ4_c54_f69.value = Math.round(parseFloat(c54)/parseFloat(f69));
+
+    let champ5_f38_f70 = document.querySelector('#champ5_f38_f70');
+    let f38 = parseFloat(parametreEntreSmarphoneDataCard['totalSmartPhone']* SommeTotaleTrafic(volumeTraficInternetSmartPhone, "volumeTraficDl")/100000)+ parseFloat(parametreEntreSmarphoneDataCard['totalDataCard']* SommeTotaleTrafic(volumeTraficInternetDataCard, "volumeTraficDl")/100000)*8*1000/3600;
+    let f70 = valeurPreliminaire['sgwCapaciteTraitementDonnee']['capaciteExploitation'];
+    champ5_f38_f70.value = Math.round(parseFloat(f38)/parseFloat(f70));
+
+    let champ6_f41_f70 = document.querySelector('#champ6_f41_f70');
+    let f41 = parseFloat(Math.round(parseFloat(configuration_profile.value)*parametreEntreSmarphoneDataCard['totaleAbonne']) * volumeTraficInternetDataCard['vpn']['volumeTraficUlDL']/1000000)*8*1000/3600;
+    champ6_f41_f70.value = Math.round(parseFloat(f41)/parseFloat(f70));
+
+    let  champ6_c54_f71 = document.querySelector("#champ6_c54_f71");
+    let f71 = valeurPreliminaire['pgwNombreBearer']['capaciteExploitation'];
+    champ6_c54_f71.value = Math.round(parseFloat(c54)/parseFloat(f71))
+
+    let champ8_f38_f72 = document.querySelector("#champ8_f38_f72");
+    let f72 = valeurPreliminaire['pgwCapaciteTraitementDonnee']['capaciteExploitation'];
+    champ8_f38_f72.value = Math.round(parseFloat(f38)/parseFloat(f72));
+
+
+    let champ9_f41_D72 = document.querySelector("#champ9_f41_D72");
+    let d72 = valeurPreliminaire['pgwNombreBearer']['valeur'];
+    champ9_f41_D72.value = Math.round(parseFloat(f41)/parseFloat(d72))
+
+
+    let champ9_c54_f73 = document.querySelector("#champ9_c54_f73");
+    let f73 = valeurPreliminaire['sgwPgwNombreBearer']['capaciteExploitation'];
+    champ9_c54_f73.value = Math.round(parseFloat(c54)/parseFloat(f73));
+
+
+    let champ10_f38_f74 = document.querySelector('#champ10_f38_f74');
+    let f74 = valeurPreliminaire['sgwPgwCapaciteTraitementDonnee']['capaciteExploitation'];
+    champ10_f38_f74.value = Math.round(parseFloat(f38)/parseFloat(f74));
+
+
+    let champ11_f41_f74 = document.querySelector('#champ11_f41_f74');
+    champ11_f41_f74.value = Math.round(parseFloat(f41)/parseFloat(f74));
+
+
+    let champ12_a9_f75 = document.querySelector('#champ12_a9_f75');
+    let f75 = valeurPreliminaire['hssNombreAbonneeSupporte']['capaciteExploitation'];
+    let a9 = parametreEntreSmarphoneDataCard['totaleAbonne'];
+    champ12_a9_f75.value = Math.round(parseFloat(a9)/parseFloat(f75));
+
+
+    let champ13_c60_f76 = document.querySelector('#champ13_c60_f76');
+    let f76 = valeurPreliminaire['pcrfTotalTransaction']['capaciteExploitation'];
+    champ13_c60_f76.value = Math.round(parseFloat(c60)/3600/parseFloat(f76));
 }
 
 

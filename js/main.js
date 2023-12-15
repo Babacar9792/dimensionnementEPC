@@ -1,12 +1,13 @@
 import { capaciteHtml } from "../components/capacite.js";
 import { debitRequis } from "../components/debit-requis.html.js";
 import { dimensionnement } from "../components/dimensionnement.js";
+import { dimensionnementnoeuds } from "../components/dimensionnementNoeuds.html.js";
 import { parametreData } from "../components/parametreData.html.js";
 import { calculProcedure } from "../components/procedure-signalisation.js";
 import { traficTotal } from "../components/trafic-total.js";
 import { configuration_profileData, parametreEntreSmarphoneDataCard, volumeTraficInternetDataCard, volumeTraficInternetSmartPhone  } from "./data.js";
-import {  navParametreEntre, section, navDebitRequis, configuration_profile, navTracficTotal, navCalculProcedure, navDimensionnement, navCapacite } from "./dom.js";
-import { calculeData, calculeVolume, dimensionnementPlanUsager, lastTab, procedureSignalisation, traficTotalVpnInternetDlUl, traficTotalVpnInternetUl, valeurPreliminaireFunction } from "./function.js";
+import {  navParametreEntre, section, navDebitRequis, configuration_profile, navTracficTotal, navCalculProcedure, navDimensionnement, navCapacite, navDimensionnementNoeud } from "./dom.js";
+import { calculeData, calculeVolume, dimensionnementPlanUsager, lastTab, paramFirstTab, procedureSignalisation, traficTotalVpnInternetDlUl, traficTotalVpnInternetUl, valeurPreliminaireFunction } from "./function.js";
 
 
 
@@ -69,53 +70,12 @@ configuration_profile.addEventListener('input',(e)=>{
  *  lorqu'on clique sur le bouton de navigation, la fonction contenant le html demander est appelée 
  * 
  * */
+section.innerHTML = parametreData();
+paramFirstTab();
 navParametreEntre?.addEventListener('click', ()=>{
     section.innerHTML = '';
     section.innerHTML = parametreData();
-     const totalAbonneInput = document.querySelector("#total-abonne-input");
-     const dataCardInput = document.querySelector("#data-card-input");
-     const smartphoneInput = document.querySelector("#smartphone-input"); //
-     const totalDataCard = document.querySelector("#total-data-card");
-     const totalSmartphone = document.querySelector("#total-smartphone");
-
-    /**
- *  start section 1 Parametres d'entrées - % de smartphones et de "Data Card" 
- * */
-totalAbonneInput?.addEventListener("input",(e)=>{
-    totalDataCard.value = "0";
-    totalSmartphone.value = "0";
-    if(parseFloat(e.target.value) <=0 || e.target.value == ""){
-        alert("La valeur doit être strictement positive");
-    }else{
-        totalDataCard.value = (parseFloat(dataCardInput.value) <=0 || dataCardInput.value == "") ? "0" : calculeData(parseFloat(e.target.value), parseFloat(dataCardInput.value));
-        totalSmartphone.value = parseFloat(smartphoneInput.value) <=0 ? "0" : calculeData(parseFloat(e.target.value), parseFloat(smartphoneInput.value));
-        parametreEntreSmarphoneDataCard["totalDataCard"] = parseFloat(totalDataCard.value);
-        parametreEntreSmarphoneDataCard["totalSmartPhone"] = parseFloat(totalSmartphone.value);
-        parametreEntreSmarphoneDataCard["totaleAbonne"] = parseFloat(e.target.value);
-        //
-    }
-    
-})
-dataCardInput?.addEventListener("input", (e)=>{
-    if(parseFloat(totalAbonneInput.value) <= 0 || parseFloat(e.target.value) <=0){
-        alert("les valeurs choisies doivent être positives");
-    }else{
-        totalDataCard.value = calculeData(parseFloat(totalAbonneInput.value), parseFloat(e.target.value));
-        parametreEntreSmarphoneDataCard["totalDataCard"] = parseFloat( totalDataCard.value);
-    }
-    
-
-
-})
-smartphoneInput?.addEventListener("input", (e)=>{
-    if(parseFloat(totalAbonneInput.value) <= 0 || parseFloat(e.target.value) <=0){
-        alert("les valeurs choisies doivent être positives");
-    }else{
-        totalSmartphone.value = calculeData(parseFloat(totalAbonneInput.value), parseFloat(e.target.value))
-        parametreEntreSmarphoneDataCard["totalSmartPhone"] = parseFloat(totalSmartphone.value);
-    }
-    
-})
+    paramFirstTab();
 
 /* end section 1 Parametres d'entrées - % de smartphones et de "Data Card" */
 })
@@ -186,7 +146,12 @@ navCapacite.addEventListener('click', ()=>{
     lastTab();
 })
 
-valeurPreliminaireFunction();
+navDimensionnementNoeud.addEventListener('click', ()=>{
+    section.innerHTML = "";
+    section.innerHTML = dimensionnementnoeuds();
+    valeurPreliminaireFunction();
+})
+
 
 
 
